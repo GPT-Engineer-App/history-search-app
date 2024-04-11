@@ -18,13 +18,14 @@ const historicalSources = [
 
 const Index = () => {
   const [question, setQuestion] = useState("");
+  const [questions, setQuestions] = useState([]);
   const [answer, setAnswer] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const handleQuestionSubmit = () => {
-    // TODO: Implement submitting the question to the backend
     console.log("Question submitted:", question);
+    setQuestions([...questions, question]);
     setQuestion("");
   };
 
@@ -54,6 +55,18 @@ const Index = () => {
           <Button onClick={handleQuestionSubmit} colorScheme="blue">
             Submit Question
           </Button>
+          {questions.length > 0 && (
+            <Box mt={4}>
+              <Heading as="h3" size="md" mb={2}>
+                Questions:
+              </Heading>
+              <VStack align="stretch" spacing={2}>
+                {questions.map((q, index) => (
+                  <Text key={index}>{q}</Text>
+                ))}
+              </VStack>
+            </Box>
+          )}
         </Box>
 
         <Box>
